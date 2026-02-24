@@ -47,35 +47,17 @@ export const skills: Skill[] = [
   { name: "Git / GitHub", icon: "🐙", level: 3, category: "tool" },
 ];
 
-export const projects: Project[] = [
-  {
-    title: "天気予報アプリ",
-    description:
-      "OpenWeatherMap APIを使用した天気予報アプリ。現在地の天気と5日間予報を表示。レスポンシブ対応。",
-    gradient: "from-sky-400 via-blue-500 to-indigo-600",
-    techStack: ["React", "TypeScript", "Tailwind CSS", "OpenWeatherMap API"],
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    title: "タスク管理アプリ",
-    description:
-      "ドラッグ&ドロップ対応のカンバンボード風タスク管理アプリ。ローカルストレージでデータ永続化。",
-    gradient: "from-emerald-400 via-teal-500 to-cyan-600",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    title: "ポートフォリオサイト",
-    description:
-      "このサイト自体。Next.js App Router + Tailwind CSS で構築し、Vercelにデプロイ。",
-    gradient: "from-violet-400 via-purple-500 to-fuchsia-600",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Motion"],
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-];
+// プロジェクトを追加するときはこの配列にオブジェクトを追加するだけでOK
+// 例:
+// {
+//   title: "アプリ名",
+//   description: "説明文",
+//   gradient: "from-sky-400 via-blue-500 to-indigo-600",
+//   techStack: ["React", "TypeScript"],
+//   githubUrl: "https://github.com/uta-a/...",
+//   liveUrl: "https://...",
+// },
+export const projects: Project[] = [];
 
 export const navLinks = [
   { label: "About", href: "#hero" },
