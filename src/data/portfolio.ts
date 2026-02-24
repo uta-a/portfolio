@@ -20,9 +20,9 @@ export type Profile = {
   name: string;
   tagline: string;
   bio: string;
-  email: string;
+  email?: string;
   github: string;
-  twitter: string;
+  twitter?: string;
 };
 
 // ─── Data ────────────────────────────────────────────
@@ -31,9 +31,7 @@ export const profile: Profile = {
   name: "uta_a",
   tagline: "フロントエンドを中心に学習中の大学生",
   bio: "大学でプログラミングを学びながら、Webフロントエンド技術を中心にスキルを磨いています。React / Next.js を使ったモダンなWebアプリケーション開発に興味があり、API連携やレスポンシブデザインの実装にも取り組んでいます。",
-  email: "your-email@example.com",
-  github: "https://github.com/uta_a",
-  twitter: "https://x.com/uta_a",
+  github: "https://github.com/uta-a",
 };
 
 export const skills: Skill[] = [

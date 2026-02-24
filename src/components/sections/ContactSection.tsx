@@ -15,34 +15,42 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    label: "X (Twitter)",
-    href: profile.twitter,
-    icon: (
-      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Email",
-    href: `mailto:${profile.email}`,
-    icon: (
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-        />
-      </svg>
-    ),
-  },
+  ...(profile.twitter
+    ? [
+        {
+          label: "X (Twitter)",
+          href: profile.twitter,
+          icon: (
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          ),
+        },
+      ]
+    : []),
+  ...(profile.email
+    ? [
+        {
+          label: "Email",
+          href: `mailto:${profile.email}`,
+          icon: (
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+              />
+            </svg>
+          ),
+        },
+      ]
+    : []),
 ];
 
 const containerVariants = {
@@ -96,9 +104,11 @@ export function ContactSection() {
                   <br className="hidden sm:block" />
                   お気軽にご連絡ください。
                 </p>
-                <p className="mt-4 font-mono text-xs text-slate-400">
-                  {profile.email}
-                </p>
+                {profile.email && (
+                  <p className="mt-4 font-mono text-xs text-slate-400">
+                    {profile.email}
+                  </p>
+                )}
               </div>
 
               {/* Right: social + CTA */}
@@ -132,30 +142,27 @@ export function ContactSection() {
                   ))}
                 </motion.div>
 
-                {/* CTA Button with shimmer + glow */}
-                <div className="relative">
-                  {/* Pulse glow behind button */}
-                  <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md animate-pulse-glow" />
-
-                  <a
-                    href={`mailto:${profile.email}`}
-                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-accent px-8 py-3.5 font-mono text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
-                  >
-                    {/* Shimmer overlay */}
-                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-
-                    <span className="relative">メールを送る</span>
-                    <svg
-                      className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                {profile.email && (
+                  <div className="relative">
+                    <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md animate-pulse-glow" />
+                    <a
+                      href={`mailto:${profile.email}`}
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-accent px-8 py-3.5 font-mono text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
                     >
-                      <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
+                      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                      <span className="relative">メールを送る</span>
+                      <svg
+                        className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
