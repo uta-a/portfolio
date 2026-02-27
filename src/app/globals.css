@@ -3,8 +3,12 @@
 /* ─── Design Tokens ──────────────────────────────── */
 
 @theme inline {
-  --color-accent: #2563eb;
-  --color-accent-light: #dbeafe;
+  --color-accent: #00d4ff;
+  --color-accent-secondary: #8b5cf6;
+  --color-surface: rgba(15, 23, 42, 0.6);
+  --color-bg: #050816;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #b0bec5;
   --font-sans: var(--font-sora), var(--font-noto), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", monospace;
 }
@@ -12,20 +16,20 @@
 /* ─── Base ────────────────────────────────────────── */
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* lenis handles smooth scroll */
 }
 
 body {
-  background: #ffffff;
-  color: #1e293b;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: var(--color-accent-light);
-  color: #1e40af;
+  background-color: rgba(0, 212, 255, 0.2);
+  color: #ffffff;
 }
 
 /* ─── Scrollbar (subtle) ─────────────────────────── */
@@ -39,12 +43,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(148, 163, 184, 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(148, 163, 184, 0.5);
 }
 
 /* ─── Keyframes ──────────────────────────────────── */
@@ -72,11 +76,11 @@ body {
   0%,
   100% {
     opacity: 0.6;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
   }
 }
 
@@ -112,6 +116,78 @@ body {
   }
 }
 
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px, 2px);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(1px, -1px);
+  }
+  40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-1px, 3px);
+  }
+  60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(3px, 1px);
+  }
+  80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-3px, -2px);
+  }
+  100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(2px, -1px);
+  }
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(2deg);
+  }
+  10% {
+    transform: skew(-1deg);
+  }
+  20% {
+    transform: skew(0deg);
+  }
+  30% {
+    transform: skew(3deg);
+  }
+  40% {
+    transform: skew(-2deg);
+  }
+  50% {
+    transform: skew(1deg);
+  }
+  60% {
+    transform: skew(0deg);
+  }
+  70% {
+    transform: skew(-3deg);
+  }
+  80% {
+    transform: skew(2deg);
+  }
+  90% {
+    transform: skew(-1deg);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+
 /* ─── Animation Utilities ────────────────────────── */
 
 .animate-shimmer {
@@ -144,4 +220,46 @@ body {
 
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* ─── Glitch Effect ──────────────────────────────── */
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  color: #00d4ff;
+  animation: glitch 3s infinite linear alternate-reverse;
+  z-index: -1;
+}
+
+.glitch::after {
+  color: #8b5cf6;
+  animation: glitch 2s infinite linear alternate-reverse;
+  animation-delay: -1s;
+  z-index: -1;
+}
+
+/* ─── Glass Surface ──────────────────────────────── */
+
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }

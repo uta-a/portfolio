@@ -1,80 +1,11 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { motion } from "motion/react";
 import { profile } from "@/data/portfolio";
-import { ParticleNetwork } from "@/components/ui/ParticleNetwork";
+import { TypingText, SplitText, GlitchText } from "@/components/ui/TextAnimations";
 
-/* ── Floating geometric shapes ─────────────────────── */
-
-function FloatingShapes() {
-  return (
-    <>
-      {/* Triangle */}
-      <motion.div
-        className="pointer-events-none absolute right-[15%] top-[18%] hidden lg:block"
-        animate={{
-          y: [0, -12, 0],
-          rotate: [0, 8, 0],
-        }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 2L22 20H2L12 2Z"
-            stroke="currentColor"
-            strokeWidth="1"
-            className="text-accent/20"
-          />
-        </svg>
-      </motion.div>
-
-      {/* Circle */}
-      <motion.div
-        className="pointer-events-none absolute bottom-[30%] right-[10%] hidden lg:block"
-        animate={{
-          y: [0, 10, 0],
-          x: [0, -6, 0],
-        }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle
-            cx="10"
-            cy="10"
-            r="8"
-            stroke="currentColor"
-            strokeWidth="1"
-            className="text-slate-300/40"
-          />
-        </svg>
-      </motion.div>
-
-      {/* Square */}
-      <motion.div
-        className="pointer-events-none absolute bottom-[45%] right-[25%] hidden lg:block"
-        animate={{
-          y: [0, -8, 0],
-          rotate: [0, 45, 0],
-        }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <rect
-            x="2"
-            y="2"
-            width="12"
-            height="12"
-            stroke="currentColor"
-            strokeWidth="1"
-            className="text-accent/15"
-          />
-        </svg>
-      </motion.div>
-    </>
-  );
-}
-
-/* ── Decorative code snippet ───────────────────────── */
+/* ── Decorative code snippet (dark terminal) ─────── */
 
 function CodeDecoration() {
   return (
@@ -89,59 +20,54 @@ function CodeDecoration() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="relative"
       >
-        {/* Terminal window */}
-        <div className="w-[340px] overflow-hidden rounded-xl border border-slate-200/60 bg-white/40 shadow-lg shadow-slate-200/20 backdrop-blur-md">
-          {/* Title bar */}
-          <div className="flex items-center gap-1.5 border-b border-slate-100 px-4 py-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-300/60" />
-            <span className="h-2.5 w-2.5 rounded-full bg-yellow-300/60" />
-            <span className="h-2.5 w-2.5 rounded-full bg-green-300/60" />
+        <div className="w-[340px] overflow-hidden rounded-xl border border-white/10 bg-surface shadow-2xl shadow-black/30 backdrop-blur-xl">
+          <div className="flex items-center gap-1.5 border-b border-white/5 px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
+            <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
+            <span className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
             <span className="ml-2 font-mono text-[10px] text-slate-400">
               profile.ts
             </span>
           </div>
 
-          {/* Code content */}
           <div className="px-4 py-4 font-mono text-xs leading-6">
             <div>
               <span className="text-purple-400">const</span>{" "}
-              <span className="text-slate-700">developer</span>{" "}
+              <span className="text-text-primary">developer</span>{" "}
               <span className="text-slate-400">=</span>{" "}
               <span className="text-accent">{`"${profile.name}"`}</span>
               <span className="text-slate-400">;</span>
             </div>
             <div>
               <span className="text-purple-400">const</span>{" "}
-              <span className="text-slate-700">stack</span>{" "}
+              <span className="text-text-primary">stack</span>{" "}
               <span className="text-slate-400">=</span>{" "}
               <span className="text-slate-400">[</span>
             </div>
             <div className="pl-4">
-              <span className="text-emerald-500">{`"React"`}</span>
+              <span className="text-emerald-400">{`"React"`}</span>
               <span className="text-slate-400">,</span>{" "}
-              <span className="text-emerald-500">{`"Next.js"`}</span>
+              <span className="text-emerald-400">{`"Next.js"`}</span>
               <span className="text-slate-400">,</span>
             </div>
             <div className="pl-4">
-              <span className="text-emerald-500">{`"TypeScript"`}</span>
+              <span className="text-emerald-400">{`"TypeScript"`}</span>
               <span className="text-slate-400">,</span>{" "}
-              <span className="text-emerald-500">{`"Tailwind"`}</span>
+              <span className="text-emerald-400">{`"Tailwind"`}</span>
             </div>
             <div>
               <span className="text-slate-400">];</span>
             </div>
             <div className="mt-2">
               <span className="text-purple-400">const</span>{" "}
-              <span className="text-slate-700">status</span>{" "}
+              <span className="text-text-primary">status</span>{" "}
               <span className="text-slate-400">=</span>{" "}
-              <span className="text-emerald-500">{`"learning"`}</span>
-              <span className="text-slate-400">;</span>{" "}
-              <span className="text-slate-300">{"// 🚀"}</span>
+              <span className="text-emerald-400">{`"learning"`}</span>
+              <span className="text-slate-400">;</span>
             </div>
           </div>
         </div>
 
-        {/* Secondary floating card */}
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{
@@ -150,7 +76,7 @@ function CodeDecoration() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute -bottom-12 -left-8 w-[200px] overflow-hidden rounded-lg border border-slate-200/60 bg-white/50 p-3 shadow-md shadow-slate-200/10 backdrop-blur-md"
+          className="absolute -bottom-12 -left-8 w-[200px] overflow-hidden rounded-lg border border-white/10 bg-surface p-3 shadow-xl shadow-black/20 backdrop-blur-xl"
         >
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent/10">
@@ -166,7 +92,7 @@ function CodeDecoration() {
             </div>
             <div>
               <p className="font-mono text-[10px] text-slate-400">commits</p>
-              <p className="font-mono text-sm font-semibold text-slate-700">
+              <p className="font-mono text-sm font-semibold text-text-primary">
                 365+
               </p>
             </div>
@@ -180,84 +106,59 @@ function CodeDecoration() {
 /* ── Main Hero ─────────────────────────────────────── */
 
 export function HeroSection() {
+  const [bootStep, setBootStep] = useState(0);
+
+  const advanceBoot = useCallback(() => {
+    setBootStep((s) => s + 1);
+  }, []);
+
   return (
     <section
       id="hero"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
+      {/* Dark scrim for text readability */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg/80 via-bg/60 to-bg/30" />
+
       {/* Background grid pattern */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Particle network */}
-      <ParticleNetwork />
-
-      {/* Animated gradient orb - top right */}
-      <motion.div
-        className="pointer-events-none absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full bg-accent/5 blur-[100px]"
-        animate={{
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Animated gradient orb - bottom left */}
-      <motion.div
-        className="pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-blue-400/5 blur-[80px]"
-        animate={{
-          x: [0, -20, 0],
-          y: [0, 25, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Subtle accent orb - center */}
-      <motion.div
-        className="pointer-events-none absolute left-1/3 top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-purple-300/3 blur-[80px]"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Floating geometric shapes */}
-      <FloatingShapes />
-
-      <div className="mx-auto w-full max-w-6xl px-6 py-32 md:px-8">
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-32 md:px-8">
         <div className="flex items-center justify-between gap-12">
           {/* Left column - Content */}
           <div className="max-w-2xl">
-            {/* Label */}
+            {/* Terminal boot line */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="mb-6 font-mono text-sm text-text-secondary"
+            >
+              <TypingText
+                text="> initializing..."
+                speed={50}
+                delay={300}
+                cursor
+                onComplete={advanceBoot}
+              />
+            </motion.div>
+
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              animate={bootStep >= 1 ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-4 py-1.5 font-mono text-xs text-slate-500 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface px-4 py-1.5 font-mono text-xs text-text-secondary backdrop-blur-sm">
                 <motion.span
                   className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400"
                   animate={{
@@ -279,66 +180,57 @@ export function HeroSection() {
 
             {/* Name */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-8 text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl"
+              initial={{ opacity: 0 }}
+              animate={bootStep >= 1 ? { opacity: 1 } : {}}
+              transition={{ duration: 0.3, delay: 0.3 }}
+              className="mt-8 text-5xl font-bold tracking-tight text-text-primary sm:text-6xl lg:text-7xl"
             >
-              {profile.name}
-              <motion.span
-                className="inline-block text-accent"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 2,
-                }}
-              >
-                .
-              </motion.span>
+              <SplitText text={profile.name} delay={0.5} />
+              <GlitchText text="." className="inline-block text-accent" />
             </motion.h1>
 
-            {/* Decorative line under name */}
+            {/* Decorative line */}
             <motion.div
               initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-              className="mt-3 h-[2px] w-20 origin-left bg-gradient-to-r from-accent to-accent/0"
+              animate={
+                bootStep >= 1 ? { scaleX: 1, opacity: 1 } : {}
+              }
+              transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
+              className="mt-3 h-[2px] w-20 origin-left bg-gradient-to-r from-accent to-accent-secondary"
             />
 
             {/* Tagline */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="mt-4 text-xl text-slate-500 sm:text-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={bootStep >= 1 ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 1.2 }}
+              className="mt-4 text-xl text-text-secondary sm:text-2xl"
             >
               {profile.tagline}
             </motion.p>
 
-            {/* Bio */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.8 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-slate-400"
+            {/* Bio - typing */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={bootStep >= 1 ? { opacity: 1 } : {}}
+              transition={{ duration: 0.3, delay: 1.5 }}
+              className="mt-6 max-w-xl text-base leading-relaxed text-slate-300"
             >
-              {profile.bio}
-            </motion.p>
+              <TypingText text={profile.bio} delay={1800} speed={20} cursor />
+            </motion.div>
 
             {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
+              animate={bootStep >= 1 ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 2.0 }}
               className="mt-10 flex flex-wrap gap-4"
             >
               <motion.a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-mono text-sm text-white shadow-lg shadow-slate-900/10 transition-colors duration-200 hover:bg-slate-800"
+                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent-secondary px-6 py-3 font-mono text-sm text-white shadow-lg shadow-accent/20 transition-all duration-200 hover:shadow-xl hover:shadow-accent/30"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -368,7 +260,7 @@ export function HeroSection() {
                     .querySelector("#contact")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-6 py-3 font-mono text-sm text-slate-700 transition-colors duration-200 hover:border-slate-300 hover:bg-slate-50"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-surface px-6 py-3 font-mono text-sm text-text-primary backdrop-blur-sm transition-all duration-200 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -386,7 +278,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right column - Code decoration (desktop only) */}
+          {/* Right column - Code decoration */}
           <CodeDecoration />
         </div>
 
@@ -394,7 +286,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
+          transition={{ delay: 2.5, duration: 0.8 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
         >
           <motion.div
@@ -406,10 +298,10 @@ export function HeroSection() {
             }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-slate-400">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent/50">
               Scroll
             </span>
-            <div className="h-8 w-[1px] bg-gradient-to-b from-slate-400 to-transparent" />
+            <div className="h-8 w-[1px] bg-gradient-to-b from-accent/50 to-transparent" />
           </motion.div>
         </motion.div>
       </div>

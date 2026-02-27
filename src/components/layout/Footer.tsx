@@ -6,13 +6,11 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-slate-900">
-      {/* Top gradient line */}
+    <footer className="relative bg-[#050816]">
       <div className="h-px w-full bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
         <div className="flex flex-col items-center gap-6">
-          {/* Logo */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -25,24 +23,21 @@ export function Footer() {
             <span className="text-accent">.</span>
           </a>
 
-          {/* Divider */}
-          <div className="h-px w-16 bg-slate-700" />
+          <div className="h-px w-16 bg-white/10" />
 
-          {/* Info row */}
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
-            <p className="font-mono text-sm text-slate-400">
+            <p className="font-mono text-sm text-slate-300">
               &copy; {new Date().getFullYear()} uta_a
             </p>
-            <span className="hidden h-3 w-px bg-slate-700 sm:block" />
-            <p className="font-mono text-xs text-slate-500">
+            <span className="hidden h-3 w-px bg-white/10 sm:block" />
+            <p className="font-mono text-xs text-slate-300">
               Built with Next.js &amp; Tailwind CSS
             </p>
           </div>
 
-          {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="group mt-2 flex items-center gap-2 font-mono text-xs text-slate-500 transition-colors hover:text-accent"
+            className="group mt-2 flex items-center gap-2 font-mono text-xs text-slate-300 transition-colors hover:text-accent"
           >
             <svg
               className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5"

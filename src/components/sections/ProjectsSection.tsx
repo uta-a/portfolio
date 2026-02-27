@@ -4,27 +4,35 @@ import { motion } from "motion/react";
 import { projects } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { GlitchText } from "@/components/ui/TextAnimations";
 
 function FloatingShapes() {
   return (
     <>
-      {/* Floating circle */}
       <motion.div
         className="absolute right-6 top-8 h-16 w-16 rounded-full border border-white/20"
         animate={{ y: [0, -8, 0], rotate: [0, 90, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Floating square */}
       <motion.div
         className="absolute bottom-8 left-8 h-10 w-10 rounded-md border border-white/15 rotate-12"
         animate={{ y: [0, 6, 0], rotate: [12, -12, 12] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
       />
-      {/* Small dot */}
       <motion.div
         className="absolute right-1/3 bottom-6 h-3 w-3 rounded-full bg-white/20"
         animate={{ y: [0, -6, 0], scale: [1, 1.3, 1] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
       />
     </>
   );
@@ -32,16 +40,16 @@ function FloatingShapes() {
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 md:px-8">
+    <section id="projects" className="relative py-24 sm:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-bg/50" />
+      <div className="relative mx-auto max-w-6xl px-6 md:px-8">
         <SectionHeading label="Projects" title="制作物" />
 
         {projects.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <FadeIn key={project.title} delay={index * 0.12} direction="up">
-                <div className="group relative overflow-hidden rounded-xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-300/40 hover:border-slate-300">
-                  {/* Gradient thumbnail area */}
+                <div className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-surface backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-accent/5 hover:border-white/10">
                   <div className="relative h-44 w-full overflow-hidden">
                     <div
                       className={`absolute inset-0 bg-gradient-to-br ${project.gradient} transition-transform duration-500 group-hover:scale-110`}
@@ -64,10 +72,10 @@ export function ProjectsSection() {
                   </div>
 
                   <div className="p-5">
-                    <h3 className="text-lg font-bold tracking-tight text-slate-900">
+                    <h3 className="text-lg font-bold tracking-tight text-text-primary">
                       {project.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                    <p className="mt-2 text-sm leading-relaxed text-text-secondary">
                       {project.description}
                     </p>
 
@@ -75,18 +83,18 @@ export function ProjectsSection() {
                       {project.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-full bg-slate-100 px-2.5 py-0.5 font-mono text-[11px] text-slate-600 transition-colors duration-200 hover:bg-accent/10 hover:text-accent"
+                          className="rounded-full bg-white/5 px-2.5 py-0.5 font-mono text-[11px] text-slate-300 transition-colors duration-200 hover:bg-accent/10 hover:text-accent"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    <div className="mt-4 flex items-center gap-3 border-t border-slate-100 pt-4">
+                    <div className="mt-4 flex items-center gap-3 border-t border-white/5 pt-4">
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
-                          className="group/link inline-flex items-center gap-1.5 font-mono text-xs text-slate-500 transition-colors hover:text-accent"
+                          className="group/link inline-flex items-center gap-1.5 font-mono text-xs text-slate-300 transition-colors hover:text-accent"
                         >
                           <svg
                             className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:-rotate-12"
@@ -101,7 +109,7 @@ export function ProjectsSection() {
                       {project.liveUrl && (
                         <a
                           href={project.liveUrl}
-                          className="group/link inline-flex items-center gap-1.5 font-mono text-xs text-slate-500 transition-colors hover:text-accent"
+                          className="group/link inline-flex items-center gap-1.5 font-mono text-xs text-slate-300 transition-colors hover:text-accent"
                         >
                           <svg
                             className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
@@ -123,7 +131,7 @@ export function ProjectsSection() {
           </div>
         ) : (
           <FadeIn direction="up">
-            <div className="mx-auto max-w-md rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-8 py-16 text-center">
+            <div className="mx-auto max-w-md rounded-xl border border-dashed border-white/10 bg-surface px-8 py-16 text-center backdrop-blur-xl">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
                 <svg
                   className="h-6 w-6 text-accent"
@@ -132,13 +140,17 @@ export function ProjectsSection() {
                   stroke="currentColor"
                   strokeWidth={1.5}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                  />
                 </svg>
               </div>
-              <p className="font-mono text-sm font-semibold text-slate-700">
-                Coming Soon
+              <p className="font-mono text-sm font-semibold text-text-primary">
+                <GlitchText text="Coming Soon" />
               </p>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-text-secondary">
                 現在開発中です。完成次第、順次公開していきます。
               </p>
             </div>

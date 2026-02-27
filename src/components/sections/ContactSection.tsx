@@ -74,38 +74,38 @@ const itemVariants = {
 
 export function ContactSection() {
   return (
-    <section id="contact" className="relative bg-slate-50/50 py-24 sm:py-32 overflow-hidden">
-      {/* Top separator */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+    <section
+      id="contact"
+      className="relative py-24 sm:py-32 overflow-hidden"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-bg/50" />
 
       {/* Background gradient orbs */}
-      <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-blue-200/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-violet-200/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full bg-sky-100/30 blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-accent-secondary/5 blur-3xl" />
 
       <div className="mx-auto max-w-6xl px-6 md:px-8 relative">
         <SectionHeading label="Contact" title="お問い合わせ" />
 
         <FadeIn direction="up">
           <div className="mx-auto max-w-4xl">
-            {/* 2-column layout on desktop */}
             <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
               {/* Left: message */}
               <div className="text-center md:text-left">
-                <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                <h3 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
                   一緒に何か
                   <br />
-                  <span className="bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
                     つくりませんか？
                   </span>
                 </h3>
-                <p className="mt-4 text-base leading-relaxed text-slate-500">
+                <p className="mt-4 text-base leading-relaxed text-text-secondary">
                   お仕事のご相談やお問い合わせなど、
                   <br className="hidden sm:block" />
                   お気軽にご連絡ください。
                 </p>
                 {profile.email && (
-                  <p className="mt-4 font-mono text-xs text-slate-400">
+                  <p className="mt-4 font-mono text-xs text-slate-300">
                     {profile.email}
                   </p>
                 )}
@@ -113,7 +113,6 @@ export function ContactSection() {
 
               {/* Right: social + CTA */}
               <div className="flex flex-col items-center md:items-end gap-8">
-                {/* Social icons with staggered animation */}
                 <motion.div
                   className="flex items-center gap-4"
                   variants={containerVariants}
@@ -125,13 +124,15 @@ export function ContactSection() {
                     <motion.a
                       key={link.label}
                       href={link.href}
-                      target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                      target={
+                        link.href.startsWith("mailto") ? undefined : "_blank"
+                      }
                       rel={
                         link.href.startsWith("mailto")
                           ? undefined
                           : "noopener noreferrer"
                       }
-                      className="group flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition-colors duration-200 hover:border-accent hover:text-accent hover:shadow-lg hover:shadow-accent/10"
+                      className="group flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-surface text-slate-300 backdrop-blur-xl transition-all duration-200 hover:border-accent/30 hover:text-accent hover:shadow-lg hover:shadow-accent/10"
                       aria-label={link.label}
                       variants={itemVariants}
                       whileHover={{ scale: 1.15, rotate: 8, y: -2 }}
@@ -147,7 +148,7 @@ export function ContactSection() {
                     <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md animate-pulse-glow" />
                     <a
                       href={`mailto:${profile.email}`}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-accent px-8 py-3.5 font-mono text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-accent to-accent-secondary px-8 py-3.5 font-mono text-sm font-medium text-white transition-all duration-300 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
                     >
                       <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                       <span className="relative">メールを送る</span>

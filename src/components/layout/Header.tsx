@@ -9,14 +9,12 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("#hero");
 
-  // Scroll detection
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active section detection via IntersectionObserver
   useEffect(() => {
     const sectionIds = navLinks.map((link) => link.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
@@ -48,27 +46,23 @@ export function Header() {
     };
   }, []);
 
-  const handleNavClick = useCallback(
-    (href: string) => {
-      setMobileOpen(false);
-      const el = document.querySelector(href);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    },
-    []
-  );
+  const handleNavClick = useCallback((href: string) => {
+    setMobileOpen(false);
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "bg-slate-900/95 shadow-[0_1px_0_0_rgba(0,0,0,0.3)] backdrop-blur-xl"
-          : "bg-slate-900"
+          ? "bg-[#050816]/90 shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl"
+          : "bg-[#050816]/80 backdrop-blur-sm"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
-        {/* Logo */}
         <motion.a
           href="#hero"
           onClick={(e) => {
@@ -83,7 +77,6 @@ export function Header() {
           <span className="text-accent">.</span>
         </motion.a>
 
-        {/* Desktop Nav */}
         <ul className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href;
@@ -95,8 +88,8 @@ export function Header() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className={`relative rounded-lg px-4 py-2 font-mono text-sm transition-all duration-200 hover:bg-slate-800 hover:text-white ${
-                    isActive ? "text-white" : "text-slate-400"
+                  className={`relative rounded-lg px-4 py-2 font-mono text-sm transition-all duration-200 hover:bg-white/5 hover:text-white ${
+                    isActive ? "text-white" : "text-slate-300"
                   }`}
                 >
                   {link.label}
@@ -117,7 +110,6 @@ export function Header() {
           })}
         </ul>
 
-        {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
@@ -143,7 +135,6 @@ export function Header() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -151,7 +142,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-full border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl md:hidden"
+            className="absolute inset-x-0 top-full border-b border-white/5 bg-[#050816]/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col px-6 py-4">
               {navLinks.map((link) => {
@@ -164,10 +155,10 @@ export function Header() {
                         e.preventDefault();
                         handleNavClick(link.href);
                       }}
-                      className={`block rounded-lg px-4 py-3 font-mono text-sm transition-colors hover:bg-slate-800 ${
+                      className={`block rounded-lg px-4 py-3 font-mono text-sm transition-colors hover:bg-white/5 ${
                         isActive
-                          ? "text-white bg-slate-800/50"
-                          : "text-slate-400 hover:text-white"
+                          ? "text-white bg-white/5"
+                          : "text-slate-300 hover:text-white"
                       }`}
                     >
                       {isActive && (
