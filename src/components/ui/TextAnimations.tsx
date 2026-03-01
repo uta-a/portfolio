@@ -26,7 +26,7 @@ export function TypingText({
   const [started, setStarted] = useState(false);
   const [done, setDone] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!isInView) return;
@@ -73,7 +73,7 @@ export function SplitText({
   charClassName = "",
 }: SplitTextProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true });
 
   return (
     <span ref={ref} className={`inline ${className}`}>
@@ -128,7 +128,7 @@ export function CountUp({
 }: CountUpProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!isInView) return;

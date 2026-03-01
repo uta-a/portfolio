@@ -5,7 +5,7 @@ import { skills } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
-import { CountUp } from "@/components/ui/TextAnimations";
+
 
 const categoryColors: Record<
   string,
@@ -104,13 +104,10 @@ export function SkillsSection() {
                       />
                     </div>
 
-                    {/* Level indicator */}
-                    <div className="mt-2 flex items-center justify-between">
+                    {/* Category label */}
+                    <div className="mt-2">
                       <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 transition-colors duration-300 group-hover:text-text-secondary">
                         {skill.category}
-                      </span>
-                      <span className="font-mono text-[10px] text-slate-400">
-                        <CountUp end={skill.level} suffix="/5" />
                       </span>
                     </div>
                   </div>
