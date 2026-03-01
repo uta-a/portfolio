@@ -2,6 +2,7 @@
 
 import { motion, type TargetAndTransition } from "motion/react";
 import { type ReactNode } from "react";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 type FadeInProps = {
   children: ReactNode;
@@ -24,6 +25,12 @@ export function FadeIn({
   blur = false,
   rotate = 0,
 }: FadeInProps) {
+  const { simpleMode } = useSimpleMode();
+
+  if (simpleMode) {
+    return <div className={className}>{children}</div>;
+  }
+
   const offsets = {
     up: { y: 30 },
     down: { y: -30 },

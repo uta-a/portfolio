@@ -2,13 +2,18 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 export function SmoothScrollProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { simpleMode } = useSimpleMode();
+
   useEffect(() => {
+    if (simpleMode) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -44,7 +49,7 @@ export function SmoothScrollProvider({
       lenis.destroy();
       document.removeEventListener("click", handleAnchorClick);
     };
-  }, []);
+  }, [simpleMode]);
 
   return <>{children}</>;
 }

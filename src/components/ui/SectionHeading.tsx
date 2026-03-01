@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { FadeIn } from "./FadeIn";
 import { SplitText } from "./TextAnimations";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 const sectionNumbers: Record<string, string> = {
   Skills: "01",
@@ -17,6 +18,7 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ label, title }: SectionHeadingProps) {
   const number = sectionNumbers[label] ?? "00";
+  const { simpleMode } = useSimpleMode();
 
   return (
     <FadeIn className="mb-16 text-center" scale blur>
@@ -37,17 +39,21 @@ export function SectionHeading({ label, title }: SectionHeadingProps) {
         <span className="inline-block h-1 w-1 rounded-full bg-accent/30" />
       </div>
 
-      <motion.div
-        className="mx-auto mt-3 h-px w-16 origin-left bg-gradient-to-r from-accent/40 to-accent-secondary/40"
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{
-          duration: 0.8,
-          delay: 0.3,
-          ease: [0.25, 0.1, 0.25, 1],
-        }}
-      />
+      {simpleMode ? (
+        <div className="mx-auto mt-3 h-px w-16 origin-left bg-gradient-to-r from-accent/40 to-accent-secondary/40" />
+      ) : (
+        <motion.div
+          className="mx-auto mt-3 h-px w-16 origin-left bg-gradient-to-r from-accent/40 to-accent-secondary/40"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+            ease: [0.25, 0.1, 0.25, 1],
+          }}
+        />
+      )}
     </FadeIn>
   );
 }
