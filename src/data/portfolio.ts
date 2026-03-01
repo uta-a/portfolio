@@ -55,7 +55,22 @@ export const skills: Skill[] = [
 //   githubUrl: "https://github.com/uta-a/...",
 //   liveUrl: "https://...",
 // },
-export const projects: Project[] = [];
+export const projects: Project[] = [
+  {
+    title: "請求書カード払いナビ",
+    description: "請求書カード払いサービスの比較ランキングサイト",
+    gradient: "from-sky-400 via-blue-500 to-indigo-600",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    liveUrl: "https://invoice-card-payment-navi.vercel.app/",
+  },
+  {
+    title: "ChoiceAssist コーポレートサイト",
+    description: "ChoiceAssist株式会社のコーポレートサイト",
+    gradient: "from-emerald-400 via-teal-500 to-cyan-600",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    liveUrl: "https://choiceassist-corporate-site.vercel.app/",
+  },
+];
 
 export const navLinks = [
   { label: "About", href: "#hero" },
