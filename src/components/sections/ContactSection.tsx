@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { profile } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 const socialLinks = [
   {
@@ -73,6 +74,8 @@ const itemVariants = {
 };
 
 export function ContactSection() {
+  const { simpleMode } = useSimpleMode();
+
   return (
     <section
       id="contact"
@@ -81,8 +84,12 @@ export function ContactSection() {
       <div className="pointer-events-none absolute inset-0 bg-bg/50" />
 
       {/* Background gradient orbs */}
-      <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-accent-secondary/5 blur-3xl" />
+      {!simpleMode && (
+        <>
+          <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-accent-secondary/5 blur-3xl" />
+        </>
+      )}
 
       <div className="mx-auto max-w-6xl px-6 md:px-8 relative">
         <SectionHeading label="Contact" title="お問い合わせ" />
@@ -113,44 +120,71 @@ export function ContactSection() {
 
               {/* Right: social + CTA */}
               <div className="flex flex-col items-center md:items-end gap-8">
-                <motion.div
-                  className="flex items-center gap-4"
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-60px" }}
-                >
-                  {socialLinks.map((link) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target={
-                        link.href.startsWith("mailto") ? undefined : "_blank"
-                      }
-                      rel={
-                        link.href.startsWith("mailto")
-                          ? undefined
-                          : "noopener noreferrer"
-                      }
-                      className="group flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-surface text-slate-300 backdrop-blur-xl transition-all duration-200 hover:border-accent/30 hover:text-accent hover:shadow-lg hover:shadow-accent/10"
-                      aria-label={link.label}
-                      variants={itemVariants}
-                      whileHover={{ scale: 1.15, rotate: 8, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {link.icon}
-                    </motion.a>
-                  ))}
-                </motion.div>
+                {simpleMode ? (
+                  <div className="flex items-center gap-4">
+                    {socialLinks.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target={
+                          link.href.startsWith("mailto") ? undefined : "_blank"
+                        }
+                        rel={
+                          link.href.startsWith("mailto")
+                            ? undefined
+                            : "noopener noreferrer"
+                        }
+                        className="group flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-surface text-slate-300 backdrop-blur-xl transition-all duration-200 hover:border-accent/30 hover:text-accent hover:shadow-lg hover:shadow-accent/10"
+                        aria-label={link.label}
+                      >
+                        {link.icon}
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <motion.div
+                    className="flex items-center gap-4"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-60px" }}
+                  >
+                    {socialLinks.map((link) => (
+                      <motion.a
+                        key={link.label}
+                        href={link.href}
+                        target={
+                          link.href.startsWith("mailto") ? undefined : "_blank"
+                        }
+                        rel={
+                          link.href.startsWith("mailto")
+                            ? undefined
+                            : "noopener noreferrer"
+                        }
+                        className="group flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-surface text-slate-300 backdrop-blur-xl transition-all duration-200 hover:border-accent/30 hover:text-accent hover:shadow-lg hover:shadow-accent/10"
+                        aria-label={link.label}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.15, rotate: 8, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {link.icon}
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                )}
 
                 {profile.email && (
                   <div className="relative">
-                    <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md animate-pulse-glow" />
+                    {!simpleMode && (
+                      <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md animate-pulse-glow" />
+                    )}
                     <a
                       href={`mailto:${profile.email}`}
                       className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-accent to-accent-secondary px-8 py-3.5 font-mono text-sm font-medium text-white transition-all duration-300 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
                     >
-                      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                      {!simpleMode && (
+                        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                      )}
                       <span className="relative">メールを送る</span>
                       <svg
                         className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"

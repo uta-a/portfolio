@@ -3,11 +3,33 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { navLinks } from "@/data/portfolio";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
+
+function ModeToggle({ className = "" }: { className?: string }) {
+  const { simpleMode, toggleSimpleMode } = useSimpleMode();
+
+  return (
+    <button
+      onClick={toggleSimpleMode}
+      className={`relative flex items-center gap-1.5 rounded-full border border-white/10 bg-surface px-3 py-1.5 font-mono text-[11px] tracking-wider backdrop-blur-sm transition-all duration-200 hover:border-accent/30 hover:bg-white/5 ${className}`}
+      aria-label={simpleMode ? "Switch to Rich mode" : "Switch to Simple mode"}
+    >
+      <span className={simpleMode ? "text-accent" : "text-slate-400"}>
+        Simple
+      </span>
+      <span className="text-slate-500">/</span>
+      <span className={!simpleMode ? "text-accent" : "text-slate-400"}>
+        Rich
+      </span>
+    </button>
+  );
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("#hero");
+  const { simpleMode } = useSimpleMode();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -54,6 +76,11 @@ export function Header() {
     }
   }, []);
 
+  const LogoTag = simpleMode ? "a" : motion.a;
+  const logoProps = simpleMode
+    ? {}
+    : { whileHover: { scale: 1.05 }, whileTap: { scale: 0.97 } };
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
@@ -63,19 +90,18 @@ export function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
-        <motion.a
+        <LogoTag
           href="#hero"
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent) => {
             e.preventDefault();
             handleNavClick("#hero");
           }}
           className="font-mono text-lg font-semibold tracking-tight text-white transition-colors hover:text-accent"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
+          {...logoProps}
         >
           uta_a
           <span className="text-accent">.</span>
-        </motion.a>
+        </LogoTag>
 
         <ul className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
@@ -94,56 +120,57 @@ export function Header() {
                 >
                   {link.label}
                 </a>
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-accent"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
+                {isActive &&
+                  (simpleMode ? (
+                    <div className="absolute -bottom-1 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-accent" />
+                  ) : (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute -bottom-1 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-accent"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  ))}
               </li>
             );
           })}
         </ul>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
-          aria-label="Toggle menu"
-        >
-          <div className="flex w-5 flex-col gap-[5px]">
-            <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
-                mobileOpen ? "translate-y-[6.5px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
-                mobileOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
-                mobileOpen ? "-translate-y-[6.5px] -rotate-45" : ""
-              }`}
-            />
-          </div>
-        </button>
+        <div className="flex items-center gap-2">
+          <ModeToggle className="hidden md:flex" />
+
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="relative z-50 flex h-10 w-10 items-center justify-center md:hidden"
+            aria-label="Toggle menu"
+          >
+            <div className="flex w-5 flex-col gap-[5px]">
+              <span
+                className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+                  mobileOpen ? "translate-y-[6.5px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+                  mobileOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+                  mobileOpen ? "-translate-y-[6.5px] -rotate-45" : ""
+                }`}
+              />
+            </div>
+          </button>
+        </div>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-full border-b border-white/5 bg-[#050816]/95 backdrop-blur-xl md:hidden"
-          >
+      {simpleMode ? (
+        mobileOpen && (
+          <div className="absolute inset-x-0 top-full border-b border-white/5 bg-[#050816]/95 backdrop-blur-xl md:hidden">
             <ul className="flex flex-col px-6 py-4">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
@@ -169,10 +196,55 @@ export function Header() {
                   </li>
                 );
               })}
+              <li className="mt-2 border-t border-white/5 pt-3">
+                <ModeToggle />
+              </li>
             </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        )
+      ) : (
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-x-0 top-full border-b border-white/5 bg-[#050816]/95 backdrop-blur-xl md:hidden"
+            >
+              <ul className="flex flex-col px-6 py-4">
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.href;
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavClick(link.href);
+                        }}
+                        className={`block rounded-lg px-4 py-3 font-mono text-sm transition-colors hover:bg-white/5 ${
+                          isActive
+                            ? "text-white bg-white/5"
+                            : "text-slate-300 hover:text-white"
+                        }`}
+                      >
+                        {isActive && (
+                          <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+                        )}
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
+                <li className="mt-2 border-t border-white/5 pt-3">
+                  <ModeToggle />
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </header>
   );
 }

@@ -255,6 +255,41 @@ body {
   z-index: -1;
 }
 
+/* ─── Simple Mode Overrides ─────────────────────── */
+
+html[data-simple-mode] .glitch::before,
+html[data-simple-mode] .glitch::after {
+  display: none;
+}
+
+html[data-simple-mode] .animate-shimmer {
+  animation: none;
+  background: transparent;
+}
+
+html[data-simple-mode] .animate-float {
+  animation: none;
+}
+
+html[data-simple-mode] .animate-pulse-glow {
+  animation: none;
+  opacity: 1;
+  box-shadow: none;
+}
+
+html[data-simple-mode] .animate-gradient-shift {
+  animation: none;
+}
+
+html[data-simple-mode] .animate-spin-slow {
+  animation: none;
+}
+
+html[data-simple-mode] .animate-cursor-blink {
+  animation: none;
+  opacity: 1;
+}
+
 /* ─── Glass Surface ──────────────────────────────── */
 
 .glass {

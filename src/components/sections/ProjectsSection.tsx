@@ -5,8 +5,13 @@ import { projects } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlitchText } from "@/components/ui/TextAnimations";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 function FloatingShapes() {
+  const { simpleMode } = useSimpleMode();
+
+  if (simpleMode) return null;
+
   return (
     <>
       <motion.div

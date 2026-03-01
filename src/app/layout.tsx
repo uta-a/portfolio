@@ -3,6 +3,7 @@ import { Sora, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
+import { SimpleModeProvider } from "@/providers/SimpleModeProvider";
 import "./globals.css";
 
 const sora = Sora({
@@ -40,11 +41,13 @@ export default function RootLayout({
       className={`${sora.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <SmoothScrollProvider>
-          <Header />
-          {children}
-          <Footer />
-        </SmoothScrollProvider>
+        <SimpleModeProvider>
+          <SmoothScrollProvider>
+            <Header />
+            {children}
+            <Footer />
+          </SmoothScrollProvider>
+        </SimpleModeProvider>
       </body>
     </html>
   );

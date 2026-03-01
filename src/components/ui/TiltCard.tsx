@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 type TiltCardProps = {
   children: ReactNode;
@@ -13,6 +14,7 @@ export function TiltCard({
   className = "",
   maxTilt = 8,
 }: TiltCardProps) {
+  const { simpleMode } = useSimpleMode();
   const ref = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState("");
 
@@ -29,6 +31,10 @@ export function TiltCard({
   const handleMouseLeave = () => {
     setTransform("");
   };
+
+  if (simpleMode) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div

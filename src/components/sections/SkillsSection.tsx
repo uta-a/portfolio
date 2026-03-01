@@ -5,7 +5,7 @@ import { skills } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TiltCard } from "@/components/ui/TiltCard";
-
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 const categoryColors: Record<
   string,
@@ -38,8 +38,20 @@ function ProgressBar({
   level: number;
   category: string;
 }) {
+  const { simpleMode } = useSimpleMode();
   const colors = categoryColors[category] ?? categoryColors.frontend;
   const percent = (level / 5) * 100;
+
+  if (simpleMode) {
+    return (
+      <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+        <div
+          className={`absolute inset-y-0 left-0 rounded-full ${colors.bar}`}
+          style={{ width: `${percent}%` }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-white/5">

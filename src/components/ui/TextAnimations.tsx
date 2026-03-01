@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { useSimpleMode } from "@/providers/SimpleModeProvider";
 
 /* ── TypingText ──────────────────────────────────── */
 
@@ -22,6 +23,7 @@ export function TypingText({
   cursor = true,
   onComplete,
 }: TypingTextProps) {
+  const { simpleMode } = useSimpleMode();
   const [displayed, setDisplayed] = useState("");
   const [started, setStarted] = useState(false);
   const [done, setDone] = useState(false);
@@ -29,12 +31,19 @@ export function TypingText({
   const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
+    if (simpleMode) {
+      setDisplayed(text);
+      setDone(true);
+      onComplete?.();
+      return;
+    }
     if (!isInView) return;
     const timer = setTimeout(() => setStarted(true), delay);
     return () => clearTimeout(timer);
-  }, [isInView, delay]);
+  }, [isInView, delay, simpleMode, text, onComplete]);
 
   useEffect(() => {
+    if (simpleMode) return;
     if (!started) return;
     if (displayed.length >= text.length) {
       setDone(true);
@@ -45,12 +54,12 @@ export function TypingText({
       setDisplayed(text.slice(0, displayed.length + 1));
     }, speed);
     return () => clearTimeout(timer);
-  }, [started, displayed, text, speed, onComplete]);
+  }, [started, displayed, text, speed, onComplete, simpleMode]);
 
   return (
     <span ref={ref} className={className}>
-      {displayed}
-      {cursor && !done && (
+      {simpleMode ? text : displayed}
+      {cursor && !done && !simpleMode && (
         <span className="animate-cursor-blink ml-0.5 inline-block w-[2px] h-[1em] bg-accent align-middle" />
       )}
     </span>
@@ -72,8 +81,21 @@ export function SplitText({
   className = "",
   charClassName = "",
 }: SplitTextProps) {
+  const { simpleMode } = useSimpleMode();
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
+
+  if (simpleMode) {
+    return (
+      <span ref={ref} className={`inline ${className}`}>
+        {text.split("").map((char, i) => (
+          <span key={`${char}-${i}`} className={`inline-block ${charClassName}`}>
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
+      </span>
+    );
+  }
 
   return (
     <span ref={ref} className={`inline ${className}`}>
@@ -104,8 +126,13 @@ type GlitchTextProps = {
 };
 
 export function GlitchText({ text, className = "" }: GlitchTextProps) {
+  const { simpleMode } = useSimpleMode();
+
   return (
-    <span className={`glitch ${className}`} data-text={text}>
+    <span
+      className={`${simpleMode ? "" : "glitch"} ${className}`}
+      data-text={text}
+    >
       {text}
     </span>
   );
@@ -126,11 +153,16 @@ export function CountUp({
   suffix = "",
   className = "",
 }: CountUpProps) {
-  const [count, setCount] = useState(0);
+  const { simpleMode } = useSimpleMode();
+  const [count, setCount] = useState(simpleMode ? end : 0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
+    if (simpleMode) {
+      setCount(end);
+      return;
+    }
     if (!isInView) return;
 
     const startTime = Date.now();
@@ -149,7 +181,7 @@ export function CountUp({
     };
 
     requestAnimationFrame(animate);
-  }, [isInView, end, duration]);
+  }, [isInView, end, duration, simpleMode]);
 
   return (
     <span ref={ref} className={className}>
