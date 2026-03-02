@@ -75,7 +75,7 @@ export default function ThreeBackground() {
   if (!webglSupported) return null;
 
   return (
-    <div className="fixed top-0 right-0 z-0 pointer-events-none h-screen w-1/2 hidden lg:block">
+    <div className="fixed inset-0 z-0 pointer-events-none h-screen w-full lg:w-1/2 lg:left-auto lg:right-0">
       <Canvas
         frameloop="demand"
         camera={{ position: [0, 0, 6], fov: 60 }}
