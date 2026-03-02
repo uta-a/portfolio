@@ -16,7 +16,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = navLinks.map((link) => link.href.replace("#", ""));
+    const sectionIds = ["hero", ...navLinks.map((link) => link.href.replace("#", ""))];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -58,8 +58,8 @@ export function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "bg-[#050816]/90 shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl"
-          : "bg-[#050816]/80 backdrop-blur-sm"
+          ? "bg-white shadow-sm border-b border-border"
+          : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
@@ -69,12 +69,11 @@ export function Header() {
             e.preventDefault();
             handleNavClick("#hero");
           }}
-          className="font-mono text-lg font-semibold tracking-tight text-white transition-colors hover:text-accent"
+          className="text-lg font-semibold tracking-tight text-text-primary transition-colors hover:text-accent-secondary"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
         >
           uta_a
-          <span className="text-accent">.</span>
         </motion.a>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -88,8 +87,8 @@ export function Header() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className={`relative rounded-lg px-4 py-2 font-mono text-sm transition-all duration-200 hover:bg-white/5 hover:text-white ${
-                    isActive ? "text-white" : "text-slate-300"
+                  className={`relative rounded-lg px-4 py-2 text-sm transition-all duration-200 hover:text-text-primary ${
+                    isActive ? "text-text-primary font-medium" : "text-text-secondary"
                   }`}
                 >
                   {link.label}
@@ -97,7 +96,7 @@ export function Header() {
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-accent"
+                    className="absolute -bottom-1 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-text-primary"
                     transition={{
                       type: "spring",
                       stiffness: 380,
@@ -108,6 +107,18 @@ export function Header() {
               </li>
             );
           })}
+          <li>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick("#contact");
+              }}
+              className="ml-4 inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-accent/90"
+            >
+              お問い合わせ
+            </a>
+          </li>
         </ul>
 
         <button
@@ -117,17 +128,17 @@ export function Header() {
         >
           <div className="flex w-5 flex-col gap-[5px]">
             <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+              className={`h-[1.5px] w-full bg-text-primary transition-all duration-300 ${
                 mobileOpen ? "translate-y-[6.5px] rotate-45" : ""
               }`}
             />
             <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+              className={`h-[1.5px] w-full bg-text-primary transition-all duration-300 ${
                 mobileOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`h-[1.5px] w-full bg-white transition-all duration-300 ${
+              className={`h-[1.5px] w-full bg-text-primary transition-all duration-300 ${
                 mobileOpen ? "-translate-y-[6.5px] -rotate-45" : ""
               }`}
             />
@@ -142,7 +153,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-full border-b border-white/5 bg-[#050816]/95 backdrop-blur-xl md:hidden"
+            className="absolute inset-x-0 top-full border-b border-border bg-white/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col px-6 py-4">
               {navLinks.map((link) => {
@@ -155,20 +166,29 @@ export function Header() {
                         e.preventDefault();
                         handleNavClick(link.href);
                       }}
-                      className={`block rounded-lg px-4 py-3 font-mono text-sm transition-colors hover:bg-white/5 ${
+                      className={`block rounded-lg px-4 py-3 text-sm transition-colors ${
                         isActive
-                          ? "text-white bg-white/5"
-                          : "text-slate-300 hover:text-white"
+                          ? "text-text-primary font-medium bg-bg"
+                          : "text-text-secondary hover:text-text-primary"
                       }`}
                     >
-                      {isActive && (
-                        <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                      )}
                       {link.label}
                     </a>
                   </li>
                 );
               })}
+              <li className="mt-2">
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick("#contact");
+                  }}
+                  className="block rounded-lg bg-accent px-4 py-3 text-center text-sm font-medium text-white"
+                >
+                  お問い合わせ
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

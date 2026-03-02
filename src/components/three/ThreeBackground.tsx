@@ -1,97 +1,93 @@
 "use client";
 
-import { Suspense, useState, useEffect, useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { GeometricScene } from "./GeometricScene";
-import { BackgroundStars } from "./BackgroundStars";
-import { PostProcessing } from "./PostProcessing";
-import { useScrollProgress } from "./useScrollProgress";
+import { Suspense, useRef, useEffect, useSyncExternalStore } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { ShapeTransitionManager } from "./shapes/ShapeTransitionManager";
+import { useSectionScroll } from "./useSectionScroll";
 
-function Scene() {
-  const scrollProgress = useScrollProgress();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isMobile, setIsMobile] = useState(false);
+function checkWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    return !!gl;
+  } catch {
+    return false;
+  }
+}
+
+function subscribeNoop() {
+  return () => {};
+}
+
+function getIsMobile() {
+  return typeof window !== "undefined" ? window.innerWidth < 768 : false;
+}
+
+function getWebGLSupported() {
+  return typeof window !== "undefined" ? checkWebGL() : true;
+}
+
+type SceneProps = {
+  isMobile: boolean;
+  sectionStateRef: ReturnType<typeof useSectionScroll>;
+};
+
+function Scene({ isMobile, sectionStateRef }: SceneProps) {
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const { invalidate } = useThree();
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    invalidate();
+  }, [invalidate]);
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (isMobile) return;
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1,
-      });
-    },
-    [isMobile]
-  );
+  // Re-render on scroll so shape transitions update
+  useEffect(() => {
+    const handleScroll = () => invalidate();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [invalidate]);
 
   useEffect(() => {
+    if (isMobile) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      invalidate();
+    };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
+  }, [isMobile, invalidate]);
 
   return (
-    <>
-      <GeometricScene
-        scrollProgress={scrollProgress}
-        mousePosition={mousePosition}
-        isMobile={isMobile}
-      />
-      <BackgroundStars />
-      {!isMobile && <PostProcessing />}
-      <Preload all />
-    </>
+    <ShapeTransitionManager
+      sectionStateRef={sectionStateRef}
+      mouseRef={mouseRef}
+      isMobile={isMobile}
+    />
   );
 }
 
 export default function ThreeBackground() {
-  const [webglSupported, setWebglSupported] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const webglSupported = useSyncExternalStore(subscribeNoop, getWebGLSupported, () => true);
+  const isMobile = useSyncExternalStore(subscribeNoop, getIsMobile, () => false);
+  const sectionStateRef = useSectionScroll();
 
-  useEffect(() => {
-    try {
-      const canvas = document.createElement("canvas");
-      const gl =
-        canvas.getContext("webgl2") || canvas.getContext("webgl");
-      if (!gl) setWebglSupported(false);
-    } catch {
-      setWebglSupported(false);
-    }
-    setIsMobile(window.innerWidth < 768);
-  }, []);
-
-  if (!webglSupported) {
-    return (
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 50%, #0a1628 0%, #050816 100%)",
-        }}
-      />
-    );
-  }
+  if (!webglSupported) return null;
 
   return (
-    <div className="fixed inset-0 z-0">
+    <div className="fixed top-0 right-0 z-0 pointer-events-none h-screen w-1/2 hidden lg:block">
       <Canvas
+        frameloop="demand"
         camera={{ position: [0, 0, 6], fov: 60 }}
         dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}
         gl={{
-          antialias: false,
+          antialias: true,
           alpha: true,
           powerPreference: "high-performance",
         }}
-        style={{ background: "#050816" }}
       >
         <Suspense fallback={null}>
-          <Scene />
+          <Scene isMobile={isMobile} sectionStateRef={sectionStateRef} />
         </Suspense>
       </Canvas>
     </div>

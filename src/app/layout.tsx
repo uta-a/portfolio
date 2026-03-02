@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "uta_a | Portfolio",
+  title: "uta_a | Web Developer",
   description:
-    "プログラミング学習中の大学生 uta_a のポートフォリオサイト。フロントエンド開発を中心に学習中。",
+    "フロントエンド開発を中心に、Webサイト制作・Webアプリ開発を行うフリーランス開発者のポートフォリオ。React / Next.js / TypeScript が得意です。",
 };
 
 export default function RootLayout({
@@ -39,6 +39,12 @@ export default function RootLayout({
       lang="ja"
       className={`${sora.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <link
+          href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <SmoothScrollProvider>
           <Header />
