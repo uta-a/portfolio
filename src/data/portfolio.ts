@@ -18,7 +18,6 @@ export type Project = {
 export type Profile = {
   name: string;
   subtitle: string;
-  tagline: string;
   bio: string;
   available: boolean;
   email?: string;
@@ -44,7 +43,6 @@ export type AboutInfo = {
 export const profile: Profile = {
   name: "uta_a",
   subtitle: "Web Developer",
-  tagline: "クリーンなコードで、ビジネスの課題を解決します",
   bio: "フロントエンド開発を中心に、React / Next.js を使ったモダンなWebサイト・Webアプリケーションの制作を行っています。レスポンシブ対応、パフォーマンス最適化、アクセシビリティを意識した実装が得意です。",
   available: true,
   github: "https://github.com/uta-a",
@@ -110,7 +108,7 @@ export const aboutInfo: AboutInfo = {
   description:
     "フロントエンド開発を中心に、クリーンで保守性の高いコードを書くことを心がけています。React / Next.js / TypeScript を主な技術スタックとし、レスポンシブデザイン、パフォーマンス最適化、アクセシビリティを意識した制作を得意としています。\n\nクライアントの要望を丁寧にヒアリングし、最適な技術選定と実装で期待以上の成果物をお届けします。納期厳守、丁寧なコミュニケーションをお約束します。",
   highlights: [
-    { label: "制作実績", value: 5, suffix: "件+" },
+    { label: "制作実績", value: 2, suffix: "件" },
     { label: "使用技術", value: 8, suffix: "種類" },
     { label: "対応可能", value: 24, suffix: "h以内返信" },
   ],

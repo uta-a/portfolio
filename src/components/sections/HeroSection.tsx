@@ -32,12 +32,6 @@ export function HeroSection() {
           </FadeIn>
 
           <FadeIn delay={0.4}>
-            <p className="mt-6 text-lg leading-relaxed text-text-secondary sm:text-xl">
-              {profile.tagline}
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.6}>
             <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
               <motion.a
                 href="#contact"
