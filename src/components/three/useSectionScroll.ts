@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 
-const SECTION_IDS = ["hero", "services", "projects", "skills", "about", "contact"];
+const SECTION_IDS = ["hero", "about", "projects", "services", "contact"];
 
 export type SectionScrollState = {
   currentIndex: number;
@@ -33,9 +33,7 @@ export function useSectionScroll() {
 
     const scrollCenter = window.scrollY + window.innerHeight * 0.5;
 
-    // Find which section boundary region we're in.
-    // Transition zone: 120px centered on each section boundary.
-    const ZONE_HALF = 60;
+    const ZONE_HALF = 80;
     const state = stateRef.current;
 
     for (let i = 0; i < sections.length - 1; i++) {
@@ -44,7 +42,6 @@ export function useSectionScroll() {
       const zoneEnd = boundary + ZONE_HALF;
 
       if (scrollCenter >= zoneStart && scrollCenter <= zoneEnd) {
-        // In transition zone between section i and i+1
         const t = (scrollCenter - zoneStart) / (zoneEnd - zoneStart);
         state.currentIndex = i;
         state.nextIndex = i + 1;
@@ -54,7 +51,6 @@ export function useSectionScroll() {
       }
     }
 
-    // Not in any transition zone — find which section we're fully in
     let idx = 0;
     for (let i = sections.length - 1; i >= 0; i--) {
       if (scrollCenter >= sections[i].top) {

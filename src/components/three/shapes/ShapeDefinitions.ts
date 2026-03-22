@@ -15,12 +15,12 @@ export const SHAPE_CONFIGS: ShapeConfig[] = [
     rotationSpeed: { x: 0.03, y: 0.08 },
     parallaxFactor: 0.3,
   },
-  // Services: TorusKnot (3,5) — complex trefoil variant
+  // About: Torus (high resolution — dense grid wireframe)
   {
-    createGeometry: () => new THREE.TorusKnotGeometry(0.7, 0.25, 100, 12, 3, 5),
+    createGeometry: () => new THREE.TorusGeometry(0.9, 0.35, 32, 64),
     particleCount: 120,
     rotationSpeed: { x: 0.02, y: 0.06 },
-    parallaxFactor: 0.25,
+    parallaxFactor: 0.3,
   },
   // Projects: Icosahedron (high subdivision — dense sphere wireframe)
   {
@@ -29,19 +29,12 @@ export const SHAPE_CONFIGS: ShapeConfig[] = [
     rotationSpeed: { x: 0.025, y: 0.07 },
     parallaxFactor: 0.3,
   },
-  // Skills: TorusKnot (2,5) — cinquefoil knot
+  // Services: TorusKnot (3,5) — complex trefoil variant
   {
-    createGeometry: () => new THREE.TorusKnotGeometry(0.7, 0.2, 100, 12, 2, 5),
-    particleCount: 120,
-    rotationSpeed: { x: 0.035, y: 0.05 },
-    parallaxFactor: 0.25,
-  },
-  // About: Torus (high resolution — dense grid wireframe)
-  {
-    createGeometry: () => new THREE.TorusGeometry(0.9, 0.35, 32, 64),
+    createGeometry: () => new THREE.TorusKnotGeometry(0.7, 0.25, 100, 12, 3, 5),
     particleCount: 120,
     rotationSpeed: { x: 0.02, y: 0.06 },
-    parallaxFactor: 0.3,
+    parallaxFactor: 0.25,
   },
   // Contact: Dodecahedron (high subdivision)
   {

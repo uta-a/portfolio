@@ -2,36 +2,41 @@
 
 import { motion } from "motion/react";
 import { profile } from "@/data/portfolio";
-import { FadeIn } from "@/components/ui/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionBlobs } from "@/components/ui/SectionBlobs";
 
 export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-screen items-center"
     >
+      <SectionBlobs variant="hero" />
+
       <div className="relative mx-auto w-full max-w-6xl px-6 py-32 md:px-8">
-        {/* Content - left on desktop, centered on mobile */}
         <div className="max-w-xl text-center lg:text-left">
-          <FadeIn delay={0.1}>
+          <Reveal preset="slide-left" delay={0.1}>
             {profile.available && (
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-1.5 text-xs font-medium text-text-secondary">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 お仕事受付中
               </span>
             )}
-          </FadeIn>
+          </Reveal>
 
-          <FadeIn delay={0.2}>
+          <Reveal preset="rise" delay={0.2}>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
               {profile.name}
             </h1>
+          </Reveal>
+
+          <Reveal preset="slide-right" delay={0.35}>
             <p className="mt-2 text-lg font-medium text-text-secondary">
               {profile.subtitle}
             </p>
-          </FadeIn>
+          </Reveal>
 
-          <FadeIn delay={0.4}>
+          <Reveal preset="scale-pop" delay={0.5}>
             <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
               <motion.a
                 href="#contact"
@@ -71,7 +76,7 @@ export function HeroSection() {
                 制作実績を見る
               </motion.a>
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
 
         {/* Scroll indicator */}

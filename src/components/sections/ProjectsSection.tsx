@@ -2,53 +2,59 @@
 
 import { motion } from "motion/react";
 import { projects } from "@/data/portfolio";
-import { FadeIn } from "@/components/ui/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
+import { StaggerGroup } from "@/components/ui/StaggerGroup";
+import { ParallaxLayer } from "@/components/ui/ParallaxLayer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionBlobs } from "@/components/ui/SectionBlobs";
 
 export function ProjectsSection() {
   return (
     <section id="projects" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 md:px-8">
+      <SectionBlobs variant="projects" />
+      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-8">
         <SectionHeading label="Projects" title="制作実績" />
 
         <div className="grid gap-8 md:grid-cols-2">
           {projects.map((project, index) => (
-            <FadeIn key={project.title} delay={index * 0.12} direction="up">
+            <Reveal
+              key={project.title}
+              preset={index % 2 === 0 ? "slide-left" : "slide-right"}
+              delay={index * 0.15}
+            >
               <motion.div
                 className="card group overflow-hidden"
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Thumbnail placeholder */}
-                <div className="relative h-48 w-full overflow-hidden bg-bg">
-                  <div className="flex h-full items-center justify-center">
-                    <span className="text-sm text-text-secondary/50">
-                      {project.thumbnail ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={project.thumbnail}
-                          alt={project.title}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <svg
-                          className="h-12 w-12 text-border"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={1}
-                        >
-                          <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-                        </svg>
-                      )}
-                    </span>
-                  </div>
+                {/* Thumbnail with parallax */}
+                <ParallaxLayer speed={0.15} className="relative h-48 w-full overflow-hidden bg-bg">
+                  {project.thumbnail ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center">
+                      <svg
+                        className="h-12 w-12 text-border"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1}
+                      >
+                        <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                      </svg>
+                    </div>
+                  )}
                   {project.category && (
                     <span className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-text-primary backdrop-blur-sm">
                       {project.category}
                     </span>
                   )}
-                </div>
+                </ParallaxLayer>
 
                 <div className="p-6">
                   <h3 className="text-lg font-bold tracking-tight text-text-primary">
@@ -58,7 +64,12 @@ export function ProjectsSection() {
                     {project.description}
                   </p>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  {/* Tech tags with stagger */}
+                  <StaggerGroup
+                    preset="scale-pop"
+                    staggerDelay={0.03}
+                    className="mt-4 flex flex-wrap gap-1.5"
+                  >
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
@@ -67,7 +78,7 @@ export function ProjectsSection() {
                         {tech}
                       </span>
                     ))}
-                  </div>
+                  </StaggerGroup>
 
                   <div className="mt-4 flex items-center gap-4 border-t border-border pt-4">
                     {project.githubUrl && (
@@ -109,7 +120,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               </motion.div>
-            </FadeIn>
+            </Reveal>
           ))}
         </div>
       </div>

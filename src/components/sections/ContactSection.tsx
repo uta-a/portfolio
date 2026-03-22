@@ -2,16 +2,19 @@
 
 import { motion } from "motion/react";
 import { profile } from "@/data/portfolio";
-import { FadeIn } from "@/components/ui/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
+import { StaggerGroup } from "@/components/ui/StaggerGroup";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionBlobs } from "@/components/ui/SectionBlobs";
 
 export function ContactSection() {
   return (
     <section id="contact" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 md:px-8">
+      <SectionBlobs variant="contact" />
+      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-8">
         <SectionHeading label="Contact" title="お仕事のご相談" />
 
-        <FadeIn direction="up">
+        <Reveal preset="rise">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-base leading-relaxed text-text-secondary">
               Webサイト制作・Webアプリ開発のご相談、お見積もりなど、
@@ -21,26 +24,32 @@ export function ContactSection() {
 
             <div className="mt-10 flex flex-col items-center gap-6">
               {profile.email && (
-                <motion.a
-                  href={`mailto:${profile.email}`}
-                  className="inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-3.5 text-sm font-medium text-white transition-all duration-200 hover:bg-accent/90"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  メールで相談する
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
+                <Reveal preset="scale-pop" delay={0.3}>
+                  <motion.a
+                    href={`mailto:${profile.email}`}
+                    className="inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-3.5 text-sm font-medium text-white transition-all duration-200 hover:bg-accent/90"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </motion.a>
+                    メールで相談する
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </motion.a>
+                </Reveal>
               )}
 
-              <div className="flex items-center gap-4">
+              <StaggerGroup
+                preset="scale-pop"
+                staggerDelay={0.06}
+                className="flex items-center gap-4"
+              >
                 <a
                   href={profile.github}
                   target="_blank"
@@ -65,10 +74,10 @@ export function ContactSection() {
                     </svg>
                   </a>
                 )}
-              </div>
+              </StaggerGroup>
             </div>
           </div>
-        </FadeIn>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Sora, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+import { Sora, Noto_Sans_JP, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/providers/SmoothScrollProvider";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const sora = Sora({
@@ -23,6 +24,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "uta_a | Web Developer",
   description:
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${sora.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
+      className={`${sora.variable} ${notoSansJP.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
     >
       <head>
         <link
@@ -47,6 +54,7 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScrollProvider>
+          <CustomCursor />
           <Header />
           {children}
           <Footer />
