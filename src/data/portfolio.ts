@@ -86,6 +86,46 @@ export const projects: Project[] = [
     thumbnail: "https://opengraph.githubassets.com/e516e7ac7c2a42854d846f50edf8f211e16bfecb723395ba3adae169f94409fb/uta-a/choiceassist-corporate-site",
     liveUrl: "https://choiceassist-corporate-site.vercel.app/",
   },
+  {
+    title: "Music Dashboard",
+    description:
+      "音楽ストリーミング分析ダッシュボード。アーティスト・アルバム・トラックの再生データを可視化。",
+    category: "Webアプリ",
+    techStack: ["Next.js", "React", "TypeScript", "CSS Modules", "motion"],
+    thumbnail:
+      "https://opengraph.githubassets.com/6a140cbd4a561ea2b9c81982e4219aa42f7e11c9ab6a2a4f71369293ec5b67c2/uta-a/music-dashboard",
+    githubUrl: "https://github.com/uta-a/music-dashboard",
+  },
+  {
+    title: "Portfolio Brutalist",
+    description:
+      "ブルータリストデザインのポートフォリオサイト。CSSカスタムプロパティとIntersection Observerでスクロールアニメーションを実装。",
+    category: "Webサイト",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    thumbnail:
+      "https://opengraph.githubassets.com/a836b975f90f8bd17533818b226172b7aa98d714778bdd45d756c33e83a3eebc/uta-a/portfolio-brutalist",
+    githubUrl: "https://github.com/uta-a/portfolio-brutalist",
+  },
+  {
+    title: "Photographer Portfolio",
+    description:
+      "都市建築写真家のポートフォリオ。Sticky Scroll Galleryで没入感のある写真閲覧体験を実現。",
+    category: "Webサイト",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    thumbnail:
+      "https://opengraph.githubassets.com/3379b5e109f115575c5df95a63b20447613d97724b737c43d0edf2713f948d82/uta-a/photographer-portfolio",
+    githubUrl: "https://github.com/uta-a/photographer-portfolio",
+  },
+  {
+    title: "REPOUtility",
+    description:
+      "R.E.P.O.のBepInEx MOD開発を支援するユーティリティライブラリ。プレイヤー操作・敵管理・アイテム制御等を提供。",
+    category: "ライブラリ",
+    techStack: ["C#", ".NET", "BepInEx"],
+    thumbnail:
+      "https://opengraph.githubassets.com/cf8ac8ec8f7623deb839fe6bf8ad8c4f61f277fe269b3088706df6da7412fc12/uta-a/repo-utility",
+    githubUrl: "https://github.com/uta-a/repo-utility",
+  },
 ];
 
 export const services: Service[] = [
@@ -120,7 +160,7 @@ export const aboutInfo: AboutInfo = {
   description:
     "フロントエンド開発を中心に、クリーンで保守性の高いコードを書くことを心がけています。React / Next.js / TypeScript を主な技術スタックとし、レスポンシブデザイン、パフォーマンス最適化、アクセシビリティを意識した制作を得意としています。\n\nクライアントの要望を丁寧にヒアリングし、最適な技術選定と実装で期待以上の成果物をお届けします。納期厳守、丁寧なコミュニケーションをお約束します。",
   highlights: [
-    { label: "制作実績", value: 3, suffix: "件" },
+    { label: "制作実績", value: 7, suffix: "件" },
     { label: "使用技術", value: 8, suffix: "種類" },
     { label: "対応可能", value: 24, suffix: "h以内返信" },
   ],
