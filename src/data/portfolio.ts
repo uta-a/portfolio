@@ -41,7 +41,7 @@ export type AboutInfo = {
 // ─── Data ────────────────────────────────────────────
 
 export const profile: Profile = {
-  name: "uta_a",
+  name: "uta",
   subtitle: "Web Developer",
   bio: "フロントエンド開発を中心に、React / Next.js を使ったモダンなWebサイト・Webアプリケーションの制作を行っています。レスポンシブ対応、パフォーマンス最適化、アクセシビリティを意識した実装が得意です。",
   available: true,
@@ -66,16 +66,16 @@ export const projects: Project[] = [
       "「らくしふ」シフト管理サイトから確定シフトデータを取得し、給料を自動計算するWebアプリ。月間シフト一覧・深夜割増計算・交通費設定に対応。",
     category: "Webアプリ",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Vite", "Vercel Serverless Functions"],
-    thumbnail: "https://opengraph.githubassets.com/4646d6309d4041c4966dc8df2892b57f582d3e6b9c3c2438fcab87f2508d87a4/uta-a/skylark-salary-detail",
-    liveUrl: "https://skylark-salary-detail.vercel.app",
-    githubUrl: "https://github.com/uta-a/skylark-salary-detail",
+    thumbnail: "/images/project-salary-screen.png",
+    liveUrl: "https://rakushifu-detail.vercel.app",
+    githubUrl: "https://github.com/uta-a/rakushifu-detail",
   },
   {
     title: "請求書カード払いナビ",
     description: "請求書カード払いサービスの比較ランキングサイト。ユーザーが最適なサービスを選べるよう、手数料・特徴を一覧比較できる構成に。",
     category: "Webサイト",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    thumbnail: "https://opengraph.githubassets.com/1ec87b05f1ba26fd0841ba15b8e60b36b8a4d4cc2686a46c1a4c77bf6a169e93/uta-a/invoice-card-payment-navi",
+    thumbnail: "/images/project-invoice.png",
     liveUrl: "https://invoice-card-payment-navi.vercel.app/",
   },
   {
@@ -83,18 +83,8 @@ export const projects: Project[] = [
     description: "ChoiceAssist株式会社のコーポレートサイト。企業イメージに合わせたデザインとレスポンシブ対応を実装。",
     category: "コーポレートサイト",
     techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail: "https://opengraph.githubassets.com/e516e7ac7c2a42854d846f50edf8f211e16bfecb723395ba3adae169f94409fb/uta-a/choiceassist-corporate-site",
+    thumbnail: "/images/project-choiceassist.png",
     liveUrl: "https://choiceassist-corporate-site.vercel.app/",
-  },
-  {
-    title: "Music Dashboard",
-    description:
-      "音楽ストリーミング分析ダッシュボード。アーティスト・アルバム・トラックの再生データを可視化。",
-    category: "Webアプリ",
-    techStack: ["Next.js", "React", "TypeScript", "CSS Modules", "motion"],
-    thumbnail:
-      "https://opengraph.githubassets.com/6a140cbd4a561ea2b9c81982e4219aa42f7e11c9ab6a2a4f71369293ec5b67c2/uta-a/music-dashboard",
-    githubUrl: "https://github.com/uta-a/music-dashboard",
   },
   {
     title: "Portfolio Brutalist",
@@ -102,8 +92,7 @@ export const projects: Project[] = [
       "ブルータリストデザインのポートフォリオサイト。CSSカスタムプロパティとIntersection Observerでスクロールアニメーションを実装。",
     category: "Webサイト",
     techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail:
-      "https://opengraph.githubassets.com/a836b975f90f8bd17533818b226172b7aa98d714778bdd45d756c33e83a3eebc/uta-a/portfolio-brutalist",
+    thumbnail: "/images/project-brutalist.png",
     githubUrl: "https://github.com/uta-a/portfolio-brutalist",
   },
   {
@@ -112,8 +101,7 @@ export const projects: Project[] = [
       "都市建築写真家のポートフォリオ。Sticky Scroll Galleryで没入感のある写真閲覧体験を実現。",
     category: "Webサイト",
     techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail:
-      "https://opengraph.githubassets.com/3379b5e109f115575c5df95a63b20447613d97724b737c43d0edf2713f948d82/uta-a/photographer-portfolio",
+    thumbnail: "/images/project-photographer.png",
     githubUrl: "https://github.com/uta-a/photographer-portfolio",
   },
   {
@@ -122,8 +110,7 @@ export const projects: Project[] = [
       "R.E.P.O.のBepInEx MOD開発を支援するユーティリティライブラリ。プレイヤー操作・敵管理・アイテム制御等を提供。",
     category: "ライブラリ",
     techStack: ["C#", ".NET", "BepInEx"],
-    thumbnail:
-      "https://opengraph.githubassets.com/cf8ac8ec8f7623deb839fe6bf8ad8c4f61f277fe269b3088706df6da7412fc12/uta-a/repo-utility",
+    thumbnail: "/images/project-repo.png",
     githubUrl: "https://github.com/uta-a/repo-utility",
   },
 ];

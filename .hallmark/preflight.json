@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-15",
+  "framework": "Next.js 16 / React 19 / Tailwind 4",
+  "source": "User-supplied portfolio layout reference",
+  "previousFonts": ["Sora", "Noto Sans JP", "JetBrains Mono", "Space Grotesk"],
+  "fonts": ["Arial", "Noto Sans JP"],
+  "palette": "Cool white, near-black, blue-gray",
+  "motion": "Native reduced-motion-aware anchor scrolling; no decorative animation",
+  "tokens": "tokens.css",
+  "preserved": ["Existing portfolio data", "Existing routes", "Tailwind entry stylesheet"],
+  "introduced": ["Featured-work hierarchy", "Generated ribbon and architecture imagery", "Native disclosures"]
+}

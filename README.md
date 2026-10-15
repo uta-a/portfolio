@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# uta Portfolio
 
-## Getting Started
+Next.js 16 / React 19 / TypeScript によるポートフォリオサイト。
 
-First, run the development server:
+## 開発
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 で表示します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 掲載内容とスタイル
 
-## Learn More
+- プロフィール・実績・技術・サービス: `src/data/portfolio.ts`
+- ページ構成: `src/app/page.tsx`
+- 各セクション: `src/components/sections/`
+- ヘッダー・フッター: `src/components/layout/`
+- 編集可能な配色・書体トークン: `tokens.css`
+- 新レイアウト・レスポンシブスタイル: `src/app/editorial.css`
+- 共通のTailwindエントリー: `src/app/globals.css`
 
-To learn more about Next.js, take a look at the following resources:
+## 2026-10 リニューアル
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+参照画像に合わせ、白基調のエディトリアル構成へ変更。ヒーロー、主役の実績1件と2件のカード、About、Tech Stack、濃色フッターで構成しています。追加の実績・プロフィールは開閉式で、Servicesは常時表示です。モバイルナビゲーションはEscapeキーで閉じられます。Music Dashboardは掲載していません。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`public/images/hero-ribbon.webp` と `about-architecture.webp` は生成画像です。`project-invoice.png`、`project-choiceassist.png`、`project-salary-screen.png` は実サイトのスクリーンショットです。給料計算アプリは認証前のログイン画面を掲載しています。それ以外の実績画像は既存のGitHubプレビューをローカルに保存しています。生成画像を実績画面として使用していません。
 
-## Deploy on Vercel
+すかいらーく給料計算アプリは移転後の公開URL `https://rakushifu-detail.vercel.app` とGitHubリポジトリ `uta-a/rakushifu-detail` にリンクしています。連絡先はプロフィールに設定されているものだけを表示します。メールアドレスが未設定のため、メールフォームはありません。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+旧3D背景・カスタムカーソル・スムーズスクロールプロバイダーは新ページでは読み込みません。既存ファイルは維持しています。全体lintには、旧 `src/components/three/shapes/ShapeTransitionManager.tsx` の `react-hooks/refs` エラーが残っています。
