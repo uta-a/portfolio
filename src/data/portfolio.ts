@@ -61,57 +61,22 @@ export const skills: Skill[] = [
 
 export const projects: Project[] = [
   {
-    title: "すかいらーく給料計算アプリ",
+    title: "Dayline",
     description:
-      "「らくしふ」シフト管理サイトから確定シフトデータを取得し、給料を自動計算するWebアプリ。月間シフト一覧・深夜割増計算・交通費設定に対応。",
-    category: "Webアプリ",
-    techStack: ["React", "TypeScript", "Tailwind CSS", "Vite", "Vercel Serverless Functions"],
-    thumbnail: "/images/project-salary-screen.png",
-    liveUrl: "https://rakushifu-detail.vercel.app",
-    githubUrl: "https://github.com/uta-a/rakushifu-detail",
+      "今日の「次にやる1件」、タスク、Google カレンダーの予定を1つの画面にまとめるAndroid / iOSアプリ。自作のMCPサーバーを通じて、ClaudeやChatGPTから会話でタスクを操作できます。自分で使うために開発している個人用アプリです。",
+    category: "個人開発 / モバイルアプリ・MCP連携",
+    techStack: ["React Native", "Expo", "TypeScript", "Supabase", "Cloudflare Workers", "MCP"],
+    thumbnail: "/images/project-dayline.png",
+    liveUrl: "https://dayline-1je.pages.dev/",
   },
   {
-    title: "請求書カード払いナビ",
-    description: "請求書カード払いサービスの比較ランキングサイト。ユーザーが最適なサービスを選べるよう、手数料・特徴を一覧比較できる構成に。",
-    category: "Webサイト",
-    techStack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    thumbnail: "/images/project-invoice.png",
-    liveUrl: "https://invoice-card-payment-navi.vercel.app/",
-  },
-  {
-    title: "ChoiceAssist コーポレートサイト",
-    description: "ChoiceAssist株式会社のコーポレートサイト。企業イメージに合わせたデザインとレスポンシブ対応を実装。",
-    category: "コーポレートサイト",
-    techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail: "/images/project-choiceassist.png",
-    liveUrl: "https://choiceassist-corporate-site.vercel.app/",
-  },
-  {
-    title: "Portfolio Brutalist",
+    title: "寺院・占いサービス リニューアル提案デモ",
     description:
-      "ブルータリストデザインのポートフォリオサイト。CSSカスタムプロパティとIntersection Observerでスクロールアニメーションを実装。",
-    category: "Webサイト",
-    techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail: "/images/project-brutalist.png",
-    githubUrl: "https://github.com/uta-a/portfolio-brutalist",
-  },
-  {
-    title: "Photographer Portfolio",
-    description:
-      "都市建築写真家のポートフォリオ。Sticky Scroll Galleryで没入感のある写真閲覧体験を実現。",
-    category: "Webサイト",
-    techStack: ["HTML", "CSS", "JavaScript"],
-    thumbnail: "/images/project-photographer.png",
-    githubUrl: "https://github.com/uta-a/photographer-portfolio",
-  },
-  {
-    title: "REPOUtility",
-    description:
-      "R.E.P.O.のBepInEx MOD開発を支援するユーティリティライブラリ。プレイヤー操作・敵管理・アイテム制御等を提供。",
-    category: "ライブラリ",
-    techStack: ["C#", ".NET", "BepInEx"],
-    thumbnail: "/images/project-repo.png",
-    githubUrl: "https://github.com/uta-a/repo-utility",
+      "コンペ用に制作した、寺院・占いサービス「龍門精舎」のWebサイトリニューアル提案デモ。深紅と生成りの配色、縦書きの表現で伝統や祈りの世界観を伝え、PC・スマートフォンに対応しています。",
+    category: "Webサイト / コンペ用提案デモ",
+    techStack: ["HTML", "CSS", "TypeScript", "Vite"],
+    thumbnail: "/images/project-ryumon.png",
+    liveUrl: "https://ryumon-heritage-demo.vercel.app/",
   },
 ];
 
@@ -147,7 +112,7 @@ export const aboutInfo: AboutInfo = {
   description:
     "フロントエンド開発を中心に、クリーンで保守性の高いコードを書くことを心がけています。React / Next.js / TypeScript を主な技術スタックとし、レスポンシブデザイン、パフォーマンス最適化、アクセシビリティを意識した制作を得意としています。\n\nクライアントの要望を丁寧にヒアリングし、最適な技術選定と実装で期待以上の成果物をお届けします。納期厳守、丁寧なコミュニケーションをお約束します。",
   highlights: [
-    { label: "制作実績", value: 7, suffix: "件" },
+    { label: "制作実績", value: projects.length, suffix: "件" },
     { label: "使用技術", value: 8, suffix: "種類" },
     { label: "対応可能", value: 24, suffix: "h以内返信" },
   ],

@@ -4,9 +4,9 @@ import { useRef } from "react";
 import Image from "next/image";
 import { projects, type Project } from "@/data/portfolio";
 
-const featured = projects[1];
-const selected = [projects[2], projects[0]];
-const remaining = projects.filter((project) => project !== featured && !selected.includes(project));
+const [featured, ...otherProjects] = projects;
+const selected = otherProjects.slice(0, 2);
+const remaining = otherProjects.slice(2);
 
 function ProjectImage({ project, featured: large = false }: { project: Project; featured?: boolean }) {
   const source = project.thumbnail;
@@ -31,12 +31,20 @@ function ProjectCard({ project }: { project: Project }) {
 
 export function ProjectsSection() {
   const allProjectsRef = useRef<HTMLDetailsElement>(null);
+  if (!featured) {
+    return (
+      <section id="projects" className="projects-section site-container" aria-labelledby="projects-title">
+        <div className="section-heading"><div><span className="section-index" aria-hidden="true">01</span><h2 id="projects-title">Featured Projects</h2></div></div>
+        <p>現在、掲載中の制作実績はありません。</p>
+      </section>
+    );
+  }
   return (
     <section id="projects" className="projects-section site-container" aria-labelledby="projects-title">
-      <div className="section-heading"><div><span className="section-index" aria-hidden="true">01</span><h2 id="projects-title">Featured Projects</h2></div><a href="#all-projects" className="text-link view-all" onClick={() => { if (allProjectsRef.current) allProjectsRef.current.open = true; }}>View all <span aria-hidden="true">↓</span></a></div>
-      <article className="featured-project"><ProjectImage project={featured} featured /><div className="featured-copy"><p className="project-category">{featured.category}</p><h3>{featured.title}</h3><p>比較をわかりやすく。<br />最適な選択を、もっとスムーズに。</p><Tags project={featured} /><ProjectLinks project={featured} /></div></article>
+      <div className="section-heading"><div><span className="section-index" aria-hidden="true">01</span><h2 id="projects-title">Featured Projects</h2></div>{remaining.length > 0 && <a href="#all-projects" className="text-link view-all" onClick={() => { if (allProjectsRef.current) allProjectsRef.current.open = true; }}>View all <span aria-hidden="true">↓</span></a>}</div>
+      <article className="featured-project"><ProjectImage project={featured} featured /><div className="featured-copy"><p className="project-category">{featured.category}</p><h3>{featured.title}</h3><p>{featured.description}</p><Tags project={featured} /><ProjectLinks project={featured} /></div></article>
       <div className="project-grid project-grid-selected">{selected.map((project) => <ProjectCard project={project} key={project.title} />)}</div>
-      <details ref={allProjectsRef} id="all-projects" className="more-projects"><summary>All projects <span>すべての制作実績</span><span aria-hidden="true">＋</span></summary><div className="project-grid">{remaining.map((project) => <ProjectCard project={project} key={project.title} />)}</div></details>
+      {remaining.length > 0 && <details ref={allProjectsRef} id="all-projects" className="more-projects"><summary>All projects <span>すべての制作実績</span><span aria-hidden="true">＋</span></summary><div className="project-grid">{remaining.map((project) => <ProjectCard project={project} key={project.title} />)}</div></details>}
     </section>
   );
 }
